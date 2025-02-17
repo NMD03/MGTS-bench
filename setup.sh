@@ -53,24 +53,26 @@ done
 ########################################
 # Set up Meilisearch in its container
 ########################################
-echo "Setting up Meilisearch in container 'meilisearch'..."
-lxc exec $MEILISEARCH_CONTAINER -- apt update
-lxc exec $MEILISEARCH_CONTAINER -- curl -L https://install.meilisearch.com -o install.sh
-lxc exec $MEILISEARCH_CONTAINER -- bash install.sh
-lxc exec $MEILISEARCH_CONTAINER -- mv ./meilisearch /usr/local/bin/
-lxc exec $MEILISEARCH_CONTAINER -- useradd -d /var/lib/meilisearch -s /bin/false -m -r meilisearch
-lxc exec $MEILISEARCH_CONTAINER -- chown meilisearch:meilisearch /usr/local/bin/meilisearch
-lxc exec $MEILISEARCH_CONTAINER -- mkdir -p /var/lib/meilisearch/data /var/lib/meilisearch/dumps /var/lib/meilisearch/snapshots
-lxc exec $MEILISEARCH_CONTAINER -- chown -R meilisearch:meilisearch /var/lib/meilisearch
-lxc exec $MEILISEARCH_CONTAINER -- chmod 750 /var/lib/meilisearch
-lxc exec $MEILISEARCH_CONTAINER -- curl https://raw.githubusercontent.com/meilisearch/meilisearch/latest/config.toml -o /etc/meilisearch.toml
+if [ "$(lxc exec "$MEILISEARCH_CONTAINER" systemctl is-active meilisearch)" = "inactive" ]; then
+    echo "Setting up Meilisearch in container 'meilisearch'..."
 
-lxc exec $MEILISEARCH_CONTAINER -- sed -i 's/http_addr = "localhost:7700"/http_addr = "0.0.0.0:7700"/' /etc/meilisearch.toml
-lxc exec $MEILISEARCH_CONTAINER -- sed -i 's/db_path = "\.\/data\.ms"/db_path = "\/var\/lib\/meilisearch\/data"/' /etc/meilisearch.toml
-lxc exec $MEILISEARCH_CONTAINER -- sed -i 's/dump_dir = "dumps\/"/dump_dir = "\/var\/lib\/meilisearch\/dumps"/' /etc/meilisearch.toml
-lxc exec $MEILISEARCH_CONTAINER -- sed -i 's/snapshot_dir = "snapshots\/"/snapshot_dir = "\/var\/lib\/meilisearch\/snapshots"/' /etc/meilisearch.toml
+    lxc exec $MEILISEARCH_CONTAINER -- apt update
+    lxc exec $MEILISEARCH_CONTAINER -- curl -L https://install.meilisearch.com -o install.sh
+    lxc exec $MEILISEARCH_CONTAINER -- bash install.sh
+    lxc exec $MEILISEARCH_CONTAINER -- mv ./meilisearch /usr/local/bin/
+    lxc exec $MEILISEARCH_CONTAINER -- useradd -d /var/lib/meilisearch -s /bin/false -m -r meilisearch
+    lxc exec $MEILISEARCH_CONTAINER -- chown meilisearch:meilisearch /usr/local/bin/meilisearch
+    lxc exec $MEILISEARCH_CONTAINER -- mkdir -p /var/lib/meilisearch/data /var/lib/meilisearch/dumps /var/lib/meilisearch/snapshots
+    lxc exec $MEILISEARCH_CONTAINER -- chown -R meilisearch:meilisearch /var/lib/meilisearch
+    lxc exec $MEILISEARCH_CONTAINER -- chmod 750 /var/lib/meilisearch
+    lxc exec $MEILISEARCH_CONTAINER -- curl https://raw.githubusercontent.com/meilisearch/meilisearch/latest/config.toml -o /etc/meilisearch.toml
 
-cat <<EOF | lxc exec "$MEILISEARCH_CONTAINER" -- tee /etc/systemd/system/meilisearch.service
+    lxc exec $MEILISEARCH_CONTAINER -- sed -i 's/http_addr = "localhost:7700"/http_addr = "0.0.0.0:7700"/' /etc/meilisearch.toml
+    lxc exec $MEILISEARCH_CONTAINER -- sed -i 's/db_path = "\.\/data\.ms"/db_path = "\/var\/lib\/meilisearch\/data"/' /etc/meilisearch.toml
+    lxc exec $MEILISEARCH_CONTAINER -- sed -i 's/dump_dir = "dumps\/"/dump_dir = "\/var\/lib\/meilisearch\/dumps"/' /etc/meilisearch.toml
+    lxc exec $MEILISEARCH_CONTAINER -- sed -i 's/snapshot_dir = "snapshots\/"/snapshot_dir = "\/var\/lib\/meilisearch\/snapshots"/' /etc/meilisearch.toml
+
+    cat <<EOF | lxc exec "$MEILISEARCH_CONTAINER" -- tee /etc/systemd/system/meilisearch.service
 [Unit]
 Description=Meilisearch
 After=systemd-user-sessions.service
@@ -87,17 +89,50 @@ Restart=on-failure
 WantedBy=multi-user.target
 EOF
 
-lxc exec $MEILISEARCH_CONTAINER -- systemctl enable meilisearch
-lxc exec $MEILISEARCH_CONTAINER -- systemctl start meilisearch
-
-
-
+    lxc exec $MEILISEARCH_CONTAINER -- systemctl enable meilisearch
+    lxc exec $MEILISEARCH_CONTAINER -- systemctl start meilisearch
+fi
 
 ########################################
 # Set up OpenSearch in its container
 ########################################
-echo "Setting up OpenSearch in container 'opensearch'..."
+# Only for testing purposes
+OPENSEARCH_PASSWD=RandomShit1!
+if [ "$(lxc exec "$OPENSEARCH_CONTAINER" systemctl is-active opensearch)" = "inactive" ]; then
+    echo "Setting up OpenSearch in container 'opensearch'..."
+    lxc exec $OPENSEARCH_CONTAINER -- apt update
+    lxc exec $OPENSEARCH_CONTAINER -- apt install -y lsb-release ca-certificates curl gnupg2
+    lxc exec "$OPENSEARCH_CONTAINER" -- \
+      bash -c "curl -s https://artifacts.opensearch.org/publickeys/opensearch.pgp \
+               | gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring"
+    lxc exec "$OPENSEARCH_CONTAINER" -- \
+      bash -c "echo 'deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main' \
+               > /etc/apt/sources.list.d/opensearch-2.x.list"
+    lxc exec $OPENSEARCH_CONTAINER -- apt update
+    lxc exec $OPENSEARCH_CONTAINER -- sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=$OPENSEARCH_PASSWD apt-get install opensearch
+    lxc exec $OPENSEARCH_CONTAINER -- sudo systemctl enable opensearch
+    lxc exec $OPENSEARCH_CONTAINER -- sudo systemctl start opensearch
 
+    lxc exec $OPENSEARCH_CONTAINER -- sed -i 's/#cluster\.name: my-application/cluster\.name: my-application/' /etc/opensearch/opensearch.yml
+    lxc exec $OPENSEARCH_CONTAINER -- sed -i 's/#network\.host: 192.168.0.1/network.host: 0.0.0.0/' /etc/opensearch/opensearch.yml
+    lxc exec $OPENSEARCH_CONTAINER -- sed -i '/network\.host: 0.0.0.0$/a discovery.type: single-node' /etc/opensearch/opensearch.yml
+    lxc exec $OPENSEARCH_CONTAINER -- sudo systemctl restart opensearch
+
+    echo "Setting up OpenSearch Dashboards in container 'opensearch'..."
+    lxc exec $OPENSEARCH_CONTAINER -- \
+        bash -c "curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp \
+        | gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring"
+    lxc exec $OPENSEARCH_CONTAINER -- \
+        bash -c "echo 'deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/apt stable main' \ 
+        > /etc/apt/sources.list.d/opensearch-dashboards-2.x.list"
+    lxc exec $OPENSEARCH_CONTAINER -- apt update
+    lxc exec $OPENSEARCH_CONTAINER -- apt install opensearch-dashboards
+    lxc exec $OPENSEARCH_CONTAINER -- systemctl enable opensearch-dashboards
+    lxc exec $OPENSEARCH_CONTAINER -- systemctl start opensearch-dashboards
+
+    lxc exec $OPENSEARCH_CONTAINER -- sed -i 's/# server.host: "localhost"/server.host: 0.0.0.0/' /etc/opensearch-dashboards/opensearch_dashboards.yml
+    lxc exec $OPENSEARCH_CONTAINER -- systemctl restart opensearch-dashboards
+fi
 
 ########################################
 # Set up Solr in its container

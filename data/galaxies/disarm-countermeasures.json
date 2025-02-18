@@ -1,0 +1,54 @@
+{
+  "description": "DISARM is a framework designed for describing and understanding disinformation incidents.",
+  "icon": "shield-alt",
+  "kill_chain_order": {
+    "metatechniques": [
+      "Resilience",
+      "Diversion",
+      "Daylight",
+      "Friction",
+      "Removal",
+      "Scoring",
+      "Metatechnique",
+      "Data Pollution",
+      "Dilution",
+      "Countermessaging",
+      "Verification",
+      "Cleaning",
+      "Targeting",
+      "Reduce Resources"
+    ],
+    "responsetypes": [
+      "Detect",
+      "Deny",
+      "Disrupt",
+      "Degrade",
+      "Deceive",
+      "Destroy",
+      "Deter"
+    ],
+    "tactics": [
+      "Plan Strategy",
+      "Plan Objectives",
+      "Microtarget",
+      "Develop Content",
+      "Select Channels and Affordances",
+      "Conduct Pump Priming",
+      "Deliver Content",
+      "Drive Offline Activity",
+      "Persist in the Information Environment",
+      "Assess Effectiveness",
+      "Target Audience Analysis",
+      "Develop Narratives",
+      "Establish Assets",
+      "Establish Legitimacy",
+      "Maximise Exposure",
+      "Drive Online Harms"
+    ]
+  },
+  "name": "Countermeasures",
+  "namespace": "disarm",
+  "type": "disarm-countermeasures",
+  "uuid": "9a3ac024-7c65-5ac0-87c4-eaed2238eec8",
+  "version": 2
+}

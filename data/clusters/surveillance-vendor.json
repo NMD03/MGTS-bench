@@ -1,0 +1,787 @@
+{
+  "authors": [
+    "Various"
+  ],
+  "category": "actor",
+  "description": "List of vendors selling surveillance technologies including malware, interception devices or computer exploitation services.",
+  "name": "Surveillance Vendor",
+  "source": "MISP Project",
+  "type": "surveillance-vendor",
+  "uuid": "c3631f86-14f1-11ea-88b0-d37ade2e3f89",
+  "values": [
+    {
+      "description": "Kape Technologies is better known by the name under which they were formerly incorporated - \"Crossrider\" but make no mistake they are the same company which became notorious as an adware/malware producer. \nKape Technologies was originally known as Crossrider until the name change in 2018. The reason for that was, as CEO Ido Erlichman put it, “strong association to the past activities of the company.” Perhaps that refers to infecting users’ devices with malware and adware, considered “high-risk” by Symantec and Malwarebytes.\nIf that wasn’t enough, Crossrider’s Founder and first CEO Koby Menachemi, was part of Unit 8200 – something that can be called Israel’s NSA. Another key person, Teddy Sagi, who is the main investor in both Crossrider and Kape Technologies, is mentioned in the Panama Papers.",
+      "meta": {
+        "official-refs": [
+          "https://www.kape.com/",
+          "http://crossrider.com/"
+        ],
+        "refs": [
+          "https://telegra.ph/Private-Internet-Access-VPN-acquired-by-malware-business-founded-by-former-Israeli-spies-12-01"
+        ],
+        "synonyms": [
+          "Kape",
+          "Crossrider"
+        ]
+      },
+      "uuid": "e42be649-b098-44c7-9275-5874daf3b81a",
+      "value": "Kape Technologies"
+    },
+    {
+      "description": "NSO Group Technologies is an Israeli technology firm known for its Pegasus spyware enabling the remote surveillance of smartphones. It was founded in 2010 by Niv Carmi, Omri Lavie, and Shalev Hulio. It reportedly employed almost 500 people as of 2017, and is based in Herzliya, near Tel Aviv.",
+      "meta": {
+        "official-refs": [
+          "https://www.nsogroup.com/"
+        ],
+        "products": [
+          "PEGASUS"
+        ],
+        "refs": [
+          "https://en.wikipedia.org/wiki/NSO_Group"
+        ],
+        "synonyms": [
+          "Q-Cyber",
+          "Circles"
+        ]
+      },
+      "uuid": "49d8e89f-401d-4d3d-9155-5758a346a4a1",
+      "value": "NSO group"
+    },
+    {
+      "description": "HackingTeam is a Milan-based information technology company that sells offensive intrusion and surveillance capabilities to governments, law enforcement agencies and corporations. Its \"Remote Control Systems\" enable governments and corporations to monitor the communications of internet users, decipher their encrypted files and emails, record Skype and other Voice over IP communications, and remotely activate microphones and camera on target computers. The company has been criticized for providing these capabilities to governments with poor human rights records, though HackingTeam states that they have the ability to disable their software if it is used unethically. The Italian government has restricted their license to do business with countries outside Europe.\nHackingTeam employs around 40 people in its Italian office, and has subsidiary branches in Annapolis, Washington, D.C., and Singapore. Its products are in use in dozens of countries across six continents.",
+      "meta": {
+        "official-refs": [
+          "http://www.mem3nt0.com/about.php"
+        ],
+        "refs": [
+          "https://en.wikipedia.org/wiki/Hacking_Team"
+        ],
+        "synonyms": [
+          "Memento Labs"
+        ]
+      },
+      "uuid": "76c054fd-3f5e-4ea1-ad04-1cffb605c6ed",
+      "value": "Hacking Team"
+    },
+    {
+      "description": "Gamma Group is an Anglo-German technology company that sells surveillance software to governments and police forces around the world. The company has been strongly criticised by human rights organisations for selling its FinFisher software to undemocratic regimes such as Egypt and Bahrain. ",
+      "meta": {
+        "official-refs": [
+          "https://www.gammagroup.com/",
+          "https://gamma-international.com/"
+        ],
+        "refs": [
+          "https://en.wikipedia.org/wiki/Gamma_Group"
+        ],
+        "synonyms": [
+          "Gamma International"
+        ]
+      },
+      "uuid": "3786c4c1-c2fc-448d-86a2-9473e699d203",
+      "value": "Gamma Group"
+    },
+    {
+      "description": "Flexispy is an application that can be considered as a trojan, based on Symbian. The program sends all information received and sent from the smartphone to a Flexispy server. It was originally created to protect children and spy on adulterous spouses.",
+      "meta": {
+        "official-refs": [
+          "https://www.flexispy.com/"
+        ]
+      },
+      "uuid": "2017228c-57eb-42aa-8397-e88d92d1502e",
+      "value": "FlexiSPY"
+    },
+    {
+      "description": "mSpy is probably the most popular monitoring software on the market today. It is designed for parents who want to track their children’s online activity. Using mSpy is easy — just download and install a hidden app on your child’s phone and let it do its thing in the background.\nmSpy is available for iOS and Android, and has a web-based control panel that allows you to remotely monitor activity on your child’s device, including texts, instant messages, phone calls and social media use on Snapchat or Facebook. It also allows you to track the location of your child’s device on a map. The best thing about mSpy is that it works on non-jailbroken iPhones.\nDo note that some of its features, including email tracking and instant messenger monitoring, are only available on a rooted Android smartphone. If you don’t know how to root an Android device, you might want to consider using a spy app like Highster Mobile. This app lets you spy on Android phone without rooting.",
+      "meta": {
+        "official-refs": [
+          "https://www.mspy.com/"
+        ],
+        "refs": [
+          "https://www.bestphonespy.com/mspy-review/"
+        ]
+      },
+      "uuid": "40782f51-5d59-42b9-b3ce-bf7d1d4c73ca",
+      "value": "mSpy"
+    },
+    {
+      "description": "Highster Mobile is a cell phone spy and monitoring software that allows you to secretly monitor your children, employees, or loved ones without them ever knowing it. The app is available for both Android and iOS devices and is developed by ILF Mobile Apps, a company based in Bohemia, New York, that specializes in mobile security.",
+      "meta": {
+        "official-refs": [
+          "https://www.highstermobi.com/"
+        ],
+        "refs": [
+          "https://www.bestphonespy.com/highster-mobile-review/"
+        ]
+      },
+      "uuid": "658c11fa-e6ff-4692-ac8e-dc536167d3e1",
+      "value": "Highster Mobile"
+    },
+    {
+      "description": "Mobile Spy is a cell phone monitoring application for iOS, Android and BlackBerry developed by Retina-X Studios. It allows you to monitor the smartphone activity of your children. You’ll be able to see text messages, track GPS locations, monitor social media activities, view call details and more inside a secure online account. Monitoring made easy. Login anytime you wish from any location to see the recorded data without needing access to the monitored phone.\nThe hidden version of Mobile Spy is no longer available due to legal issues.",
+      "meta": {
+        "official-refs": [
+          "http://www.mobile-spy.com/"
+        ],
+        "refs": [
+          "https://www.bestphonespy.com/mobile-spy-review/"
+        ]
+      },
+      "uuid": "0b3eb33b-95a6-4da8-9085-278475276073",
+      "value": "Mobile Spy"
+    },
+    {
+      "description": "Hoverwatch is a computer and mobile monitoring software developed by Refog. It is available for Android, Windows and macOS. It runs silently in the background, recording all activities performed by the user such as messages sent and received, phone calls made and received, web sites visited, and every keystroke typed. All recorded data is sent to an online account.",
+      "meta": {
+        "official-refs": [
+          "https://www.hoverwatch.com/"
+        ],
+        "refs": [
+          "https://www.bestphonespy.com/hoverwatch-review/"
+        ]
+      },
+      "uuid": "a7d4bcf3-6dc9-4d66-98a8-724e9d619a80",
+      "value": "Hoverwatch"
+    },
+    {
+      "description": "MobiStealth is a popular spy software that comes with a simple web-based console and powerful monitoring features. It is developed by Infoweise Pty Ltd, a private company headquartered in Sydney, Australia. They have been making high quality monitoring solutions since 2009. In November 2015, they launched a “Non-Jailbreak” feature, letting users spy on all iOS devices without needing to jailbreak them.\nJust like many other spy software, MobiStealth allows you to spy on a cell phone or computer via a web interface called StealthClub. As its name implies, it is a stealth application that runs in the background without the owner’s knowledge.",
+      "meta": {
+        "official-refs": [
+          "https://www.mobistealth.com/"
+        ],
+        "refs": [
+          "https://www.bestphonespy.com/mobistealth-review/"
+        ]
+      },
+      "uuid": "a85664ba-67ea-448f-9a9d-7bcf4cedd270",
+      "value": "MobiStealth"
+    },
+    {
+      "description": "Spyera develops and sells computer and mobile spy software. Based in Hong Kong, Spyera’s products work in all languages and all countries. The company’s phone and PC monitoring products are useful tools for any parent or company, although they are quite expensive in comparison to other products.\nSpyera comes in three different versions — a mobile version for iPhone and Android smartphones, a tablet version for iPad and Android tablets, and a desktop version for Mac and Windows. The mobile version of Spyera is actually very similar to the FlexiSPY Extreme, which I reviewed a few weeks ago. It has everything you’d expect from a cell phone spy software: live call listening, call recording, and location tracking.",
+      "meta": {
+        "official-refs": [
+          "https://spyera.com/"
+        ],
+        "refs": [
+          "https://www.bestphonespy.com/spyera-review/"
+        ]
+      },
+      "uuid": "24b7fea3-7d2d-4ca4-8941-86cf8ebbf404",
+      "value": "Spyera"
+    },
+    {
+      "description": "StealthGenie is a powerful cell phone spy software created by InvoCode Ltd in 2010 that can be used to spy on cheating spouses and monitor children’s activities. In September 2014, Hammad Akbar, founder of StealthGenie, was arrested in Los Angeles and charged with selling mobile device spyware. \nStealthGenie was officially discontinued on 26 September 2014.",
+      "meta": {
+        "refs": [
+          "https://www.bestphonespy.com/stealthgenie-review/"
+        ]
+      },
+      "uuid": "ef236716-10b4-4c50-96db-407b283a0f17",
+      "value": "StealthGenie"
+    },
+    {
+      "description": "SpyBubble is a spy app that lets you secretly spy on someone’s phone. This spy app is compatible with a variety of mobile devices, including iPhone, Android, BlackBerry and Symbian, and it offers logging features for most cell phone activity. SpyBubble doesn’t provide the blocking and restricting features that you will find in several similar applications. However, it has many useful features, and its monitoring features are excellent.\nSpybubble cell phone spy software was discontinued due to legal reasons",
+      "meta": {
+        "refs": [
+          "https://www.bestphonespy.com/spybubble-review/"
+        ]
+      },
+      "uuid": "f49bf1b6-e257-4ffc-b5ac-f0e26ef36965",
+      "value": "SpyBubble"
+    },
+    {
+      "description": "Cytrox’s Israeli companies were founded in 2017 as Cytrox EMEA Ltd. and Cytrox Software Ltd. Perhaps taking a page from Candiru’s corporate obfuscation playbook, both of those companies were renamed in 2019 to Balinese Ltd. and Peterbald Ltd., respectively. We also observed one entity in Hungary, Cytrox Holdings Zrt, which was also formed in 2017.",
+      "meta": {
+        "products": [
+          "DevilsTongue"
+        ],
+        "refs": [
+          "https://citizenlab.ca/2021/12/pegasus-vs-predator-dissidents-doubly-infected-iphone-reveals-cytrox-mercenary-spyware/"
+        ],
+        "synonyms": [
+          "Cytrox EMEA Ltd.",
+          "Cytrox Software Ltd.",
+          "Balinese Ltd.",
+          "Peterbald Ltd.",
+          "Cytrox Holdings Zrt"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "ab53ed38-82ea-11ee-8613-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-acquired-by"
+        },
+        {
+          "dest-uuid": "d3e48fbb-9be5-4387-bf2b-bc9a72cdbd8a",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        },
+        {
+          "dest-uuid": "ab53ed38-82ea-11ee-8613-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        },
+        {
+          "dest-uuid": "eb6af48e-82ea-11ee-a4dc-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        },
+        {
+          "dest-uuid": "1c909820-82eb-11ee-80c7-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "part-of"
+        }
+      ],
+      "uuid": "4dbfa61e-0cf5-4142-babf-3cdce348568d",
+      "value": "Cytrox"
+    },
+    {
+      "description": "RCS Lab S.p.A., Italian vendor likely using Tykelab Srl as a front company.",
+      "meta": {
+        "products": [
+          "Hermit"
+        ],
+        "refs": [
+          "https://www.rcslab.it/en/index.html",
+          "https://www.lookout.com/blog/hermit-spyware-discovery",
+          "https://www.vice.com/en/article/nz75wd/european-surveillance-companies-agt-rcs-sell-syria-tools-of-oppression"
+        ],
+        "synonyms": [
+          "RCS Lab"
+        ]
+      },
+      "uuid": "28ed79b6-a11d-4e41-af80-ece8f0e0c2d3",
+      "value": "RCSLab"
+    },
+    {
+      "description": "Aglaya, a contractor based in Delhi, India, emerged into the public eye in 2014 following its attempt to secure a substantial annual contract worth $5 billion. This surge in prominence was largely driven by the actions of Ankur Srivastava, Aglaya's CEO and founder, who purportedly proposed the outsourcing of surveillance and hacking services to various governments.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.vice.com/en/article/59weqb/a-spyware-company-audaciously-offers-cyber-nukes"
+        ]
+      },
+      "uuid": "4045c51a-82eb-11ee-a366-325096b39f47",
+      "value": "Aglaya"
+    },
+    {
+      "description": "Interionet Systems Ltd., headquartered in Herzliya, Israel, is a privately-held company recognized for its  approach in the cyber intelligence domain, particularly catering to law enforcement and intelligence agencies. The firm, founded by ex-NSO team members, is dedicated to the development of sophisticated cyber-intrusion and mobile interception tools.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.intelligenceonline.com/surveillance--interception/2019/05/14/interionet-former-nso-team-s-new-offensive-cyber-firm,108357090-art",
+          "https://www.interionet.com/"
+        ]
+      },
+      "uuid": "44d59236-82eb-11ee-923e-325096b39f47",
+      "value": "Interionet"
+    },
+    {
+      "description": "The Intellexa alliance is an evolving group of companies and brands that have been involved in developing and marketing a wide range of surveillance products including advanced spyware, mass surveillance platforms, and tactical systems for targeting and intercepting nearby devices. The corporate entities of the alliance span various jurisdictions, both within and outside the EU. The exact nature of links between these companies is shrouded in secrecy as corporate entities, and the structures between them, are constantly morphing, renaming, rebranding, and evolving.",
+      "meta": {
+        "products": [
+          "Nova",
+          "Triton",
+          "Helios",
+          "ALIEN",
+          "PREDATOR"
+        ],
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://securitylab.amnesty.org/latest/2023/10/technical-deep-dive-into-intellexa-alliance-surveillance-products/",
+          "https://www.spiegel.de/international/business/the-predator-files-european-spyware-consortium-supplied-despots-and-dictators-a-2fd8043f-c5c1-4b05-b5a6-e8f8b9949978",
+          "https://blog.google/threat-analysis-group/0-days-exploited-by-commercial-surveillance-vendor-in-egypt/"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "4dbfa61e-0cf5-4142-babf-3cdce348568d",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "known-as"
+        }
+      ],
+      "uuid": "1c909820-82eb-11ee-80c7-325096b39f47",
+      "value": "Intellexa"
+    },
+    {
+      "description": "Merlinx / Equus Technologies, Israeli firm, a privately held company specializing in the development of tailor made innovative solutions for law enforcement, intelligence agencies, and national security organizations. Linked to the Android malware, also sells iOS capabilities.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.vice.com/en/article/evdebz/google-revealed-an-israeli-spyware-company-that-has-quietly-sold-its-wares-for-years"
+        ]
+      },
+      "uuid": "18128362-82eb-11ee-8723-325096b39f47",
+      "value": "Merlinx / Equus Technologies"
+    },
+    {
+      "description": "AQSACOM, French company - lawful interception for IP networks. All Aqsacom's security products can be combined in a powerful solution so that Telecommunications and ISP operators can provide the Authorities with a reliable and professional service.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://aqsacom.com/"
+        ]
+      },
+      "uuid": "131a6b7c-82eb-11ee-bcb3-325096b39f47",
+      "value": "AQSACOM"
+    },
+    {
+      "description": "Area Spa is a firm based near Milan that sells monitoring systems capable of capturing internet traffic, tapping conversations, and tracking targets through GPS.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.vice.com/en/article/gv5knx/italian-cops-raid-surveillance-tech-company-area-spa-selling-spy-gear-to-syria",
+          "https://www.area.it/en/"
+        ]
+      },
+      "uuid": "0e2c2b64-82eb-11ee-b34f-325096b39f47",
+      "value": "Area"
+    },
+    {
+      "description": "ClearTrail Technologies, India based company, known for developing or selling systems for monitoring computers, mobile phones and emails of unsuspecting masses.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.clear-trail.com/about-us/",
+          "https://www.business-standard.com/article/companies/the-two-men-behind-india-s-secret-surveillance-industry-111120300053_1.html"
+        ]
+      },
+      "uuid": "0977bd04-82eb-11ee-915c-325096b39f47",
+      "value": "ClearTrail"
+    },
+    {
+      "description": "Elaman is a German company that sell a wide array of surveillance technologies. From vast monitoring centres capable of monitoring thousands of conversations simultaneously to trojans that target individual's devices specifically. They don't create these products, they resell from other surveillance companies. They have sold products from VASTech, Gamma, Utimaco and Nokia Siemens Networks. This catalogue gives an insight into one of the surveillance industries biggest middle man.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.elaman.de/",
+          "https://privacyinternational.org/blog/1540/elaman-and-gamma-whats-selling-and-whos-buying-indonesia"
+        ]
+      },
+      "uuid": "04d776c2-82eb-11ee-9d14-325096b39f47",
+      "value": "Elaman"
+    },
+    {
+      "description": "Gita Technologies, Israeli based company with a mission to be a worldwide leader in research and development of high-end security systems and SIGINT.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://gitatechnologies.com/"
+        ]
+      },
+      "uuid": "01f21098-82eb-11ee-9475-325096b39f47",
+      "value": "Gita Technologies"
+    },
+    {
+      "description": "Innova, based in Trieste, Italy, and a frequent supplier of Italian prosecutor’s offices. It was the only Italian firm at the International Exhibition for National Security and Resilience (ISNR), which was held in Abu Dhabi in October 2022. The exhibition connects regional government agencies with manufacturers from around the world, and was organised in cooperation with the Ministry of the Interior and in strategic partnership with Abu Dhabi Police GHQ. The United Arab Emirates, however, is known for human rights violations, some of which facilitated by the use of digital surveillance technology, as in the case of an iPhone spyware that was used against hundreds of activists, foreign leaders and suspected terrorists, according to Reuters. Innova’s foreign presence did not stop at ISNR. The company was also at ISS World Latin America, which took place in Panama in October 2022, and was among the sponsors of the September event of ISS World Asia Pacific 2022 in Singapore. These trade shows are not mere opportunities for display, but allow direct contact with members of intelligence agencies from various countries, law enforcement officials and government leaders or ministers.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://irpimedia.irpi.eu/en-italian-spyware-on-the-international-market/"
+        ]
+      },
+      "uuid": "fda75d0e-82ea-11ee-9668-325096b39f47",
+      "value": "Innova"
+    },
+    {
+      "description": "Jenovice, an Israeli firm that flies under the radar has invented a remotely-operated WiFi interception device that can facilitate spy missions. Jenovice Cyber Labs' Piranha exploits vulnerabilities in WiFi networks to connect an attacker to as many as 50 targeted devices at once.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://cyberscoop.com/jenovice-cyber-labs-metropolink-city-wide-surveillance/",
+          "https://www.jenovice.com/"
+        ]
+      },
+      "uuid": "f88c61fc-82ea-11ee-9ba8-325096b39f47",
+      "value": "Jenovice"
+    },
+    {
+      "description": "Lumacron, a British startup which is developing interception tools to capture the massive data flows that transit through the principal international communications networks.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.intelligenceonline.com/surveillance--interception/2018/06/19/lumacron-extends-interception-to-undersea-cables,108314081-art"
+        ]
+      },
+      "uuid": "f4f39ee8-82ea-11ee-babc-325096b39f47",
+      "value": "Lumacron"
+    },
+    {
+      "description": "NeoSoft AG, Switzerland manufacturer of Passive, Active (Semi-Active), Hybrid GSM Monitoring systems with A5.2/A5.1 deciphering, CDMA Passive Monitoring systems, IMSI/IMEI Catchers 2G/3G, InPoint SMS System (sends SMS to everybody). All NeoSoft systems support the following bands: GSM, PCS, EGSM, 2100, 850. NeoSoft has world-wide experience.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.burojansen.nl/pdf/ISSWorldEuropejune2011sponsorsfromwebsite.pdf",
+          "https://riskybiznews.substack.com/p/risky-biz-news-australia-passes-new",
+          "https://www.neosoft.ch/"
+        ]
+      },
+      "uuid": "f10f551a-82ea-11ee-a915-325096b39f47",
+      "value": "NeoSoft"
+    },
+    {
+      "description": "Nexa Technologies was indicted for complicity in acts of torture, the French firm is accused of having sold surveillance equipment to the Egypt.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://securityaffairs.com/125083/intelligence/nexa-technologies-indicted.html",
+          "https://wearenexa.com/aboutus/"
+        ],
+        "synonyms": [
+          "Nexa Technologies"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "d3e48fbb-9be5-4387-bf2b-bc9a72cdbd8a",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        },
+        {
+          "dest-uuid": "4dbfa61e-0cf5-4142-babf-3cdce348568d",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        },
+        {
+          "dest-uuid": "ab53ed38-82ea-11ee-8613-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        },
+        {
+          "dest-uuid": "1c909820-82eb-11ee-80c7-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "part-of"
+        }
+      ],
+      "uuid": "eb6af48e-82ea-11ee-a4dc-325096b39f47",
+      "value": "Nexa"
+    },
+    {
+      "description": "Norsi-Trans produces SIGINT and lawful interception equipment and software for the Russian government and also sells an OSINT platform called Vitok-ROI (or Vitok-OSINT).",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://keyfindings.blog/2020/03/23/be-careful-what-you-osint-with/",
+          "https://norsi-trans.com/"
+        ]
+      },
+      "uuid": "e63a05d6-82ea-11ee-99d2-325096b39f47",
+      "value": "Norsi-Trans"
+    },
+    {
+      "description": "Polaris Wireless, US based company that specializes in the development of wireless surveillance products.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.zdnet.com/google-amp/article/polaris-wireless-secures-contract-in-surveillance-tracking-software/"
+        ]
+      },
+      "uuid": "e1d96f90-82ea-11ee-b499-325096b39f47",
+      "value": "Polaris Wireless"
+    },
+    {
+      "description": "Pro4Tech, Tel Aviv/Israel based company which provides tactical surveillance systems designed by field-professionals for law-enforcement and government agencies.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.israeldefense.co.il/en/content/israeli-companies-milopol-pro4tech"
+        ]
+      },
+      "uuid": "dd594940-82ea-11ee-b2da-325096b39f47",
+      "value": "Pro4Tech"
+    },
+    {
+      "description": "Rayzone, Israeli cyber intelligence company. The surveillance software makes it possible, among other things, to locate a person's location and path of movement with an accuracy of one meter and makes it possible to receive additional information from the applications on the target's device.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.haaretz.com/israel-news/tech-news/2020-12-17/ty-article/israeli-spy-tech-firm-tracked-mobile-users-around-the-world-investigation-suggests/0000017f-e76b-da9b-a1ff-ef6f847c0000"
+        ]
+      },
+      "uuid": "d7f0eac6-82ea-11ee-a3fc-325096b39f47",
+      "value": "Rayzone"
+    },
+    {
+      "description": "Seartech is a South African company specializing in the design and manufacture of tactical surveillance equipment.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.seartech.co.za/"
+        ]
+      },
+      "uuid": "d2af90da-82ea-11ee-ae9e-325096b39f47",
+      "value": "Seartech"
+    },
+    {
+      "description": "Securcube s.r.l is an Italian company that specializes in services and products for the Digital Forensics..",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://securcube.net/"
+        ]
+      },
+      "uuid": "ce09094e-82ea-11ee-92b0-325096b39f47",
+      "value": "Securcube"
+    },
+    {
+      "description": "Septier Communication Ltd, with global headquarters in Israel and offices across several continentshas dozens of installations serving telecommunication operators and law-enforcement agencies and organizations throughout the world. Septier develops and markets comprehensive lawful interception systems which include cutting-edge monitor centers and passive front ends based on high capacity signaling monitoring probes.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.israeldefense.co.il/company/septier-communication-ltd"
+        ]
+      },
+      "uuid": "c8b2b486-82ea-11ee-bf5a-325096b39f47",
+      "value": "Septier"
+    },
+    {
+      "description": "Cy4gate, Italian based company, sells its products worldwide, including to dictatorships, while competing with companies involved in scandals related to repression of opponents and journalists.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://irpimedia.irpi.eu/en-surveillances-cy4gate/",
+          "https://www.vice.com/en/article/m7awav/prosecutors-suspend-cy4gate-government-spyware-used-in-whatsapp-phishing-attacks"
+        ]
+      },
+      "uuid": "c36f60aa-82ea-11ee-9893-325096b39f47",
+      "value": "Cy4gate"
+    },
+    {
+      "description": "Toka, Israeli based company, which offers its police, government and intelligence clients the ability to obtain targeted intelligence and conduct forensic investigations as well as covert operations. In addition, Toka offers governments its Cyber Designers service, which provides agencies with the full-spectrum strategies, customized projects, and technologies needed to ensure the security and sustainability of critical infrastructure, the digital landscape, and government institutions.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.haaretz.com/israel-news/security-aviation/2022-12-26/ty-article-magazine/.premium/this-dystopian-cyber-firm-could-have-saved-mossad-assassins-from-exposure/00000185-0bc6-d26d-a1b7-dbd739100000",
+          "https://www.orishas-finance.com/actualite/5310?lang=en"
+        ]
+      },
+      "uuid": "bef4dde8-82ea-11ee-b431-325096b39f47",
+      "value": "Toka"
+    },
+    {
+      "description": "Trovicor, Germany based companies’ surveillance technology allegedly used in connection with human rights abuses by authoritarian govts.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.business-humanrights.org/en/latest-news/response-by-trovicor-german-companies-surveillance-technology-allegedly-used-in-connection-with-human-rights-abuses-by-authoritarian-govts/",
+          "https://trovicor.com/"
+        ]
+      },
+      "uuid": "b857854e-82ea-11ee-8e7b-325096b39f47",
+      "value": "Trovicor"
+    },
+    {
+      "description": "Utimaco, Aachen/Germany based company which praises itself as market leader in eavesdropping technology.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://digit.site36.net/2022/03/07/utimaco-german-wiretapping-technology-could-strengthen-junta-in-myanmar/"
+        ]
+      },
+      "uuid": "b46b4d8a-82ea-11ee-a797-325096b39f47",
+      "value": "Utimaco"
+    },
+    {
+      "description": "Wintego Systems develops advanced communication, intelligence, and data-decoding solutions for the government and homeland security sectors.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.forbes.com/sites/thomasbrewster/2016/09/29/wintego-whatsapp-encryption-surveillance-exploits/?sh=53f93cd1aa95"
+        ]
+      },
+      "uuid": "afc73226-82ea-11ee-8a25-325096b39f47",
+      "value": "Wintego"
+    },
+    {
+      "description": "Wispear Systems Ltd (renamed Passitoria Ltd), provides interception equipment designed for the extraction of voice or data, transmitted over the air interface.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://in-cyprus.philenews.com/local/surveillance-software-has-been-exported-from-cyprus/"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "4dbfa61e-0cf5-4142-babf-3cdce348568d",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "acquires"
+        },
+        {
+          "dest-uuid": "4dbfa61e-0cf5-4142-babf-3cdce348568d",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with "
+        },
+        {
+          "dest-uuid": "eb6af48e-82ea-11ee-a4dc-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with "
+        },
+        {
+          "dest-uuid": "d3e48fbb-9be5-4387-bf2b-bc9a72cdbd8a",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with "
+        },
+        {
+          "dest-uuid": "1c909820-82eb-11ee-80c7-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "part-of"
+        }
+      ],
+      "uuid": "ab53ed38-82ea-11ee-8613-325096b39f47",
+      "value": "Wispear"
+    },
+    {
+      "description": "DarkMatter founded in the United Arab Emirates (UAE) was under investigation by the FBI for crimes including digital espionage services, involvement in the Jamal Khashoggi assassination, and incarceration of foreign dissidents.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://en.wikipedia.org/wiki/DarkMatter_Group"
+        ]
+      },
+      "uuid": "a6712272-82ea-11ee-b70e-325096b39f47",
+      "value": "DarkMatter"
+    },
+    {
+      "description": "Lench IT Solutions, Germany based company. Lench IT Solutions plc has a UK-based branch, Gamma International Ltd in Andover, England, and a Germany-based branch, Gamma International GmbH in Munich. FinFisher, also known as FinSpy, is surveillance software marketed by Lench IT Solutions plc.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://en.wikipedia.org/wiki/FinFisher"
+        ]
+      },
+      "uuid": "a1002342-82ea-11ee-8b84-325096b39f47",
+      "value": "Lench"
+    },
+    {
+      "description": "GR Sistemi, Italian firm that's been trying to enter the crowded market of government spyware, also known by insiders as lawful interception.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.vice.com/en/article/kbyg7a/government-spyware-maker-doxes-itself-by-linking-to-its-site-in-malware-code"
+        ]
+      },
+      "uuid": "9c29b716-82ea-11ee-a0d8-325096b39f47",
+      "value": "GR Sistemi"
+    },
+    {
+      "description": "SS8, US based company is selling to a range of US government agencies as well as exporting surveillance equipment abroad. SS8 were also reportedly responsible for selling intrusion systems to the United Arab Emirates.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://privacyinternational.org/sites/default/files/2017-12/global_surveillance_0.pdf"
+        ]
+      },
+      "uuid": "8f3205ae-82ea-11ee-be61-325096b39f47",
+      "value": "SS8"
+    },
+    {
+      "description": "Wolf Intelligence a Germany-based spyware company that made headlines for sending a bodyguard to Mauritania and prompting an international incident after the local government detained the bodyguard as collateral for a deal went wrong, left a trove of its own data exposed online.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.vice.com/en/article/vbka8b/wolf-intelligence-leak-customer-victim-data-online",
+          "https://www.vice.com/en/article/wxq85w/scam-spyware-vendor-gets-caught-once-again"
+        ]
+      },
+      "uuid": "8b50f9e0-82ea-11ee-b818-325096b39f47",
+      "value": "Wolf Intelligence"
+    },
+    {
+      "description": "Vervata, Thailand-based software company, which among other, provides mobile monitoring applications that secretly records all activity on a phone.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.gmanetwork.com/news/topstories/nation/3072/new-program-snoops-on-cell-phones/story/",
+          "https://www.forbes.com/sites/thomasbrewster/2017/02/16/government-iphone-android-spyware-is-the-same-as-seedy-spouseware/?sh=3a06dacb455c"
+        ]
+      },
+      "uuid": "86cb5eb0-82ea-11ee-83e0-325096b39f47",
+      "value": "Vervata"
+    },
+    {
+      "description": "Raxir, Italy based surveillance firm that is housed in Naples, in a tech startup incubator. According to the company's page on the incubator's website, Raxir was founded in 2013 and produces software systems to support legal and intelligence investigations.",
+      "meta": {
+        "refs": [
+          "https://www.atlanticcouncil.org/wp-content/uploads/2021/11/Surveillance-Technology-at-the-Fair.pdf",
+          "https://www.vice.com/en/article/9a3g4e/malware-hunters-catch-new-android-spyware-raxir"
+        ]
+      },
+      "uuid": "8198124e-82ea-11ee-859b-325096b39f47",
+      "value": "Raxir"
+    },
+    {
+      "description": "Senpai Technologies is a company specializing in OSINT and persona creation based out of Israel, while WiSpear, also based in Israel, specializes in Wi-Fi interception.",
+      "meta": {
+        "refs": [
+          "https://blog.talosintelligence.com/intellexa-and-cytrox-intel-agency-grade-spyware/"
+        ],
+        "synonyms": [
+          "Senpai Technologies"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "1c909820-82eb-11ee-80c7-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "part-of"
+        },
+        {
+          "dest-uuid": "4dbfa61e-0cf5-4142-babf-3cdce348568d",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        },
+        {
+          "dest-uuid": "ab53ed38-82ea-11ee-8613-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        },
+        {
+          "dest-uuid": "eb6af48e-82ea-11ee-a4dc-325096b39f47",
+          "tags": [
+            "estimative-language:likelihood-probability=\"likely\""
+          ],
+          "type": "is-allied-with"
+        }
+      ],
+      "uuid": "d3e48fbb-9be5-4387-bf2b-bc9a72cdbd8a",
+      "value": "Senpai"
+    }
+  ],
+  "version": 8
+}

@@ -148,6 +148,8 @@ if [ "$(lxc exec "$SOLR_CONTAINER" systemctl is-active solr)" = "inactive" ]; th
     lxc exec $SOLR_CONTAINER -- sed -i 's/#SOLR_HOST="192.168.1.1"/SOLR_HOST="solr.lxd"/' /etc/default/solr.in.sh
     lxc exec $SOLR_CONTAINER -- sed -i 's/#SOLR_JETTY_HOST="127.0.0.1"/SOLR_JETTY_HOST="0.0.0.0"/' /etc/default/solr.in.sh
     lxc exec $SOLR_CONTAINER -- systemctl restart solr
+
+    lxc exec $SOLR_CONTAINER -- sudo -u solr /opt/solr/bin/solr create -c new_core
 fi
 
 echo "Setup complete. All containers are configured and should be running their respective search engines."

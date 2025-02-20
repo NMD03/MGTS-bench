@@ -8,11 +8,13 @@ import meilisearch
 import pysolr
 from statistics import mean, median
 from opensearchpy import OpenSearch
+import matplotlib.pyplot as plt
+import numpy as np
 
-MILEI_HOST = "10.247.171.177:7700"
-OPEN_HOST = "10.247.171.134"
-SOLR_HOST = "10.247.171.236:8983"
-SOLR_CORE = "lol"
+MILEI_HOST = "10.201.235.43:7700"
+OPEN_HOST = "10.201.235.220"
+SOLR_HOST = "10.201.235.34:8983"
+SOLR_CORE = "new_core"
 
 
 # Base class for search engines
@@ -73,7 +75,7 @@ class OpenSearchEngine(SearchEngine):
             elapsed = time.time() - start
             return elapsed
         except Exception as e:
-            return None, e
+            return None
 
     def _run_search_test(self, payload, num_requests, concurrency, use_get=False):
         latencies = []
@@ -183,12 +185,16 @@ class MeilisearchEngine(SearchEngine):
 class SolrEngine(SearchEngine):
     def __init__(self):
         super().__init__("Solr")
-        self.solr = pysolr.Solr(f"http://{SOLR_HOST}/solr/{SOLR_CORE}", always_commit=True)
+        self.solr = pysolr.Solr(
+            f"http://{SOLR_HOST}/solr/{SOLR_CORE}", always_commit=True
+        )
         self.schema_url = f"http://{SOLR_HOST}/solr/{SOLR_CORE}/schema"
         self.created_fields = {}
         self.global_field_defs = {}
 
-    def add_field(self, field_name, field_type, stored=True, indexed=True, multiValued=False):
+    def add_field(
+        self, field_name, field_type, stored=True, indexed=True, multiValued=False
+    ):
         """
         Adds a single field to the schema using the Solr Schema API.
         Updates the global state so the field is not re-added.
@@ -203,7 +209,7 @@ class SolrEngine(SearchEngine):
                 "type": "text_en",
                 "stored": stored,
                 "indexed": indexed,
-                "multiValued": multiValued
+                "multiValued": multiValued,
             }
         }
         headers = {"Content-Type": "application/json"}
@@ -211,8 +217,13 @@ class SolrEngine(SearchEngine):
         if response.status_code != 200:
             print(f"Error adding field '{field_name}': {response.text}")
         else:
-            print(f"Successfully added field '{field_name}' with type '{field_type}' and multiValued={multiValued}.")
-            self.created_fields[field_name] = {"type": field_type, "multiValued": multiValued}
+            print(
+                f"Successfully added field '{field_name}' with type '{field_type}' and multiValued={multiValued}."
+            )
+            self.created_fields[field_name] = {
+                "type": field_type,
+                "multiValued": multiValued,
+            }
         return response.json()
 
     def field_exists(self, field_name):
@@ -266,7 +277,12 @@ class SolrEngine(SearchEngine):
         for key, value in doc.items():
             if flatten and isinstance(value, dict):
                 self._gather_field_definitions_from_doc(value, field_defs, flatten)
-            elif flatten and isinstance(value, list) and value and isinstance(value[0], dict):
+            elif (
+                flatten
+                and isinstance(value, list)
+                and value
+                and isinstance(value[0], dict)
+            ):
                 for item in value:
                     self._gather_field_definitions_from_doc(item, field_defs, flatten)
             else:
@@ -306,7 +322,9 @@ class SolrEngine(SearchEngine):
                 print(f"Field '{field}' already added (global state); skipping.")
                 continue
             if self.field_exists(field):
-                print(f"Field '{field}' already exists in schema; adding to global state.")
+                print(
+                    f"Field '{field}' already exists in schema; adding to global state."
+                )
                 self.created_fields[field] = definition
                 continue
             self.add_field(
@@ -314,11 +332,10 @@ class SolrEngine(SearchEngine):
                 field_type=definition["type"],
                 stored=True,
                 indexed=True,
-                multiValued=definition.get("multiValued", False)
+                multiValued=definition.get("multiValued", False),
             )
 
         self.add_catchall_field()
-
 
     def add_catchall_field(self):
         """
@@ -328,16 +345,13 @@ class SolrEngine(SearchEngine):
         # Create the catch-all field if it doesn't exist.
         if not self.field_exists("_text_"):
             print("Creating catch-all field '_text_'.")
-            self.add_field("_text_", "text_general", stored=False, indexed=True, multiValued=True)
+            self.add_field(
+                "_text_", "text_general", stored=False, indexed=True, multiValued=True
+            )
         else:
             print("Catch-all field '_text_' already exists.")
         # Add the copyField rule to aggregate all fields into _text_
-        payload = {
-            "add-copy-field": {
-                "source": "*",
-                "dest": "_text_"
-            }
-        }
+        payload = {"add-copy-field": {"source": "*", "dest": "_text_"}}
         headers = {"Content-Type": "application/json"}
         response = requests.post(self.schema_url, json=payload, headers=headers)
         if response.status_code != 200:
@@ -360,7 +374,7 @@ class SolrEngine(SearchEngine):
         start = time.time()
         results = self.solr.search(params, **{"rows": 1000})
         elapsed = time.time() - start
-        #print("Saw {0} result(s).".format(len(results)))
+        # print("Saw {0} result(s).".format(len(results)))
         # for result in results:
         #     print("The title is '{0}'.".format(result))
         return elapsed
@@ -378,9 +392,7 @@ class SolrEngine(SearchEngine):
                 result = future.result()
                 if result is not None:
                     latency = result
-                    if (
-                        latency is not None 
-                    ):
+                    if latency is not None:
                         latencies.append(latency)
                     else:
                         errors += 1
@@ -403,7 +415,8 @@ class SolrEngine(SearchEngine):
         }
 
     def cleanup(self):
-        self.solr.delete(q='*:*')
+        self.solr.delete(q="*:*")
+
 
 # Tester class that loads the dataset and runs all tests
 class MISPPerfTester:
@@ -413,7 +426,7 @@ class MISPPerfTester:
         self.num_search = num_search
         self.concurrency = concurrency
         self.query = query
-        self.nested = False
+        self.nested = True
         self.documents = self.load_dataset()
         # Create instances for each search engine
         self.engines = [OpenSearchEngine(), MeilisearchEngine(), SolrEngine()]
@@ -471,6 +484,59 @@ class MISPPerfTester:
             print(f"  Throughput        : {result['throughput']:.2f} req/s")
             print("-" * 50)
 
+    def run_multiple_search_tests(self):
+        # Define a list of queries to test.
+        queries = ["APT28", "Android", "phishing", "malware", "fraud", "e878d24d-f122-48c4-930c-f6b6d5f0ee28"]
+        metrics = ["avg_latency", "median_latency", "throughput", "errors"]
+        # Prepare a dictionary to store metrics per engine per query.
+        results = {engine.name: {m: [] for m in metrics} for engine in self.engines}
+        print("\nRunning multi-query search tests...")
+        for q in queries:
+            print(f"Query: '{q}'")
+            for engine in self.engines:
+                res = engine.search(q, self.num_search, self.concurrency)
+                results[engine.name]["avg_latency"].append(
+                    res["avg_latency"] * 1000
+                )  # convert seconds to ms
+                results[engine.name]["median_latency"].append(
+                    res["median_latency"] * 1000
+                )
+                results[engine.name]["throughput"].append(res["throughput"])
+                results[engine.name]["errors"].append(res["errors"])
+                print(
+                    f"  {engine.name}: avg {res['avg_latency'] * 1000:.2f} ms, median {res['median_latency'] * 1000:.2f} ms, throughput {res['throughput']:.2f}, errors {res['errors']}"
+                )
+        return queries, results
+
+    def plot_results(self, queries, results):
+        # We'll create a 2x2 grid: one subplot for each metric.
+        metrics = ["avg_latency", "median_latency", "throughput", "errors"]
+        titles = {
+            "avg_latency": "Average Latency (ms)",
+            "median_latency": "Median Latency (ms)",
+            "throughput": "Throughput (req/s)",
+            "errors": "Errors (#)",
+        }
+        engine_names = list(results.keys())
+        num_queries = len(queries)
+        x = np.arange(num_queries)
+        width = 0.2  # width of each bar
+        fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+        axs = axs.flatten()
+        for idx, metric in enumerate(metrics):
+            ax = axs[idx]
+            for i, engine in enumerate(engine_names):
+                ax.bar(x + i * width, results[engine][metric], width, label=engine)
+            ax.set_xticks(x + width * (len(engine_names) - 1) / 2)
+            ax.set_xticklabels(queries)
+            ax.set_xlabel("Query")
+            ax.set_ylabel(titles[metric])
+            ax.set_title(titles[metric])
+            ax.legend()
+            plt.tight_layout()
+            plt.savefig("search_performance.png")
+            print("Plot saved to search_performance.png")
+
     def cleanup(self):
         for engine in self.engines:
             engine.cleanup()
@@ -511,25 +577,14 @@ def main():
     tester = MISPPerfTester(
         args.dataset_dir, args.num_index, args.num_search, args.concurrency, args.query
     )
-    # meili = tester.engines[1]
-    # print(meili.index_documents(docs))
-    # print(meili._run_search_test(tester.query, tester.num_search, tester.concurrency))
-
-    # opensearch = tester.engines[0]
-    # opensearch.index_documents(docs)
-    # print(opensearch._run_search_test({"query": {"multi_match": {"query": tester.query}}}, tester.num_search, tester.concurrency))
-
     # solr = tester.engines[2]
     # solr.create_core_schema(tester.documents)
-    # solr.cleanup()
-    # print(solr.index_documents(tester.documents))
-    # solr._run_search_test(tester.query, tester.num_search, tester.concurrency)
-
-    tester.cleanup()
-    tester.run_indexing_tests()
-    tester.run_search_tests()
-
-    
+    #
+    # tester.cleanup()
+    # tester.run_indexing_tests()
+    # tester.run_search_tests()
+    queries, results = tester.run_multiple_search_tests()
+    tester.plot_results(queries, results)
 
 
 if __name__ == "__main__":

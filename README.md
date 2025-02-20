@@ -10,3 +10,6 @@ Specs:
 - CPU cores: 2
 - Memory: 4GB
 
+# Results
+
+![graph](./search_performance.png)

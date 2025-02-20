@@ -398,7 +398,7 @@ class SolrEngine(SearchEngine):
                         errors += 1
                 else:
                     errors += 1
-
+        
         total_time = time.time() - start_time
         total_requests = len(latencies) + errors
         avg_latency = mean(latencies) if latencies else 0
@@ -486,7 +486,18 @@ class MISPPerfTester:
 
     def run_multiple_search_tests(self):
         # Define a list of queries to test.
-        queries = ["APT28", "Android", "phishing", "malware", "fraud", "e878d24d-f122-48c4-930c-f6b6d5f0ee28"]
+        queries = [
+            "APT28",
+            "A",
+            "An",
+            "Android",
+            "phishing",
+            "malware",
+            "fraud",
+            "e878d24d-f122-48c4-930c-f6b6d5f0ee28",
+            "4e8c1ab7-2841-4823-a5d1-39284fb0969a",
+            "Enemybot has been seen targeting routers from Seowon Intech, D-Link, and exploits a recently reported iRZ router vulnerability to infect more devices",
+        ]
         metrics = ["avg_latency", "median_latency", "throughput", "errors"]
         # Prepare a dictionary to store metrics per engine per query.
         results = {engine.name: {m: [] for m in metrics} for engine in self.engines}
@@ -509,6 +520,13 @@ class MISPPerfTester:
         return queries, results
 
     def plot_results(self, queries, results):
+        # Function to shorten query labels if they are longer than 7 characters.
+        def shorten_label(q):
+            return q[:4] + "..." if len(q) > 7 else q
+
+        # Create a new list of x-axis labels.
+        short_queries = [shorten_label(q) for q in queries]
+
         # We'll create a 2x2 grid: one subplot for each metric.
         metrics = ["avg_latency", "median_latency", "throughput", "errors"]
         titles = {
@@ -521,14 +539,14 @@ class MISPPerfTester:
         num_queries = len(queries)
         x = np.arange(num_queries)
         width = 0.2  # width of each bar
-        fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+        fig, axs = plt.subplots(2, 2, figsize=(20, 10))
         axs = axs.flatten()
         for idx, metric in enumerate(metrics):
             ax = axs[idx]
             for i, engine in enumerate(engine_names):
                 ax.bar(x + i * width, results[engine][metric], width, label=engine)
             ax.set_xticks(x + width * (len(engine_names) - 1) / 2)
-            ax.set_xticklabels(queries)
+            ax.set_xticklabels(short_queries)  # Use the shortened labels
             ax.set_xlabel("Query")
             ax.set_ylabel(titles[metric])
             ax.set_title(titles[metric])

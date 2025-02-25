@@ -15,6 +15,7 @@ MILEI_HOST = "10.201.235.43:7700"
 OPEN_HOST = "10.201.235.220"
 SOLR_HOST = "10.201.235.34:8983"
 SOLR_CORE = "new_core"
+QUICKWIT_HOST = "10.201.235.68:7280"
 
 
 # Base class for search engines
@@ -398,7 +399,7 @@ class SolrEngine(SearchEngine):
                         errors += 1
                 else:
                     errors += 1
-        
+
         total_time = time.time() - start_time
         total_requests = len(latencies) + errors
         avg_latency = mean(latencies) if latencies else 0
@@ -418,6 +419,101 @@ class SolrEngine(SearchEngine):
         self.solr.delete(q="*:*")
 
 
+# QuickWitEngine implementation
+class QuickWitEngine(SearchEngine):
+    def __init__(self):
+        super().__init__("QuickWit")
+        self.base_url = f"http://{QUICKWIT_HOST}"
+        self.index_name = "misp-galaxies"
+        self.config_file = "quickwit_conf.yaml"
+
+    def index_documents(self, docs):
+        try:
+            with open(self.config_file, "r", encoding="utf-8") as f:
+                yaml_config = f.read()
+        except Exception as e:
+            print(f"Error reading YAML config file: {e}")
+            return None
+        url = f"{self.base_url}/api/v1/indexes"
+        headers = {"Content-Type": "application/yaml"}
+        try:
+            response = requests.post(url, data=yaml_config, headers=headers)
+            if response.status_code != 200:
+                print(f"Indexing error ({response.status_code}): {response.text}")
+        except Exception as e:
+            print(f"Indexing exception: {e}")
+        start = time.time()
+        headers = {"Content-Type": "application/json"}
+        url = f"{self.base_url}/api/v1/{self.index_name}/ingest"
+        for doc in docs:
+            data = json.dumps(doc, ensure_ascii=False)
+            try:
+                response = requests.post(url, data=data,headers=headers)
+                if response.status_code != 200:
+                    print(f"Indexing error ({response.status_code}): {response.text}")
+            except Exception as e:
+                print(f"Indexing exception: {e}")
+        elapsed = time.time() - start
+        return elapsed
+
+    def _perform_search(self, query):
+        start = time.time()
+        url = f"{self.base_url}/api/v1/{self.index_name}/search"
+        payload = {
+            "query": query,
+            "index_id": self.index_name,
+        }
+        try:
+            response = requests.post(url, json=payload)
+            response.raise_for_status()
+            elapsed = time.time() - start
+            return elapsed
+        except Exception as e:
+            print(f"Search error: {e}")
+            return None
+
+    def search(self, query, num_requests=100, concurrency=10):
+        latencies = []
+        errors = 0
+        start_time = time.time()
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=concurrency) as executor:
+            futures = [
+                executor.submit(self._perform_search, query)
+                for _ in range(num_requests)
+            ]
+            for future in concurrent.futures.as_completed(futures):
+                result = future.result()
+                if result is not None:
+                    latencies.append(result)
+                else:
+                    errors += 1
+
+        total_time = time.time() - start_time
+        total_requests = len(latencies) + errors
+        avg_latency = mean(latencies) if latencies else 0
+        median_latency = median(latencies) if latencies else 0
+        throughput = total_requests / total_time if total_time > 0 else 0
+
+        return {
+            "total_requests": total_requests,
+            "successful": len(latencies),
+            "errors": errors,
+            "avg_latency": avg_latency,
+            "median_latency": median_latency,
+            "throughput": throughput,
+        }
+
+    def cleanup(self):
+        url = f"{self.base_url}/api/v1/indexes/{self.index_name}"
+        try:
+            response = requests.delete(url)
+            if response.status_code != 200:
+                print(f"Cleanup error ({response.status_code}): {response.text}")
+        except Exception as e:
+            print(f"Cleanup exception: {e}")
+
+
 # Tester class that loads the dataset and runs all tests
 class MISPPerfTester:
     def __init__(self, dataset_dir, num_index, num_search, concurrency, query):
@@ -429,7 +525,12 @@ class MISPPerfTester:
         self.nested = True
         self.documents = self.load_dataset()
         # Create instances for each search engine
-        self.engines = [OpenSearchEngine(), MeilisearchEngine(), SolrEngine()]
+        self.engines = [
+            OpenSearchEngine(),
+            MeilisearchEngine(),
+            SolrEngine(),
+            QuickWitEngine(),
+        ]
 
     def load_dataset(self):
         print(f"Loading dataset from directory: {self.dataset_dir}")
@@ -601,8 +702,13 @@ def main():
     # tester.cleanup()
     # tester.run_indexing_tests()
     # tester.run_search_tests()
-    queries, results = tester.run_multiple_search_tests()
-    tester.plot_results(queries, results)
+    # queries, results = tester.run_multiple_search_tests()
+    # tester.plot_results(queries, results)
+
+    quick = tester.engines[3]
+    #quick.cleanup()
+    #print(quick.index_documents(tester.documents))
+    quick.search(tester.query)
 
 
 if __name__ == "__main__":

@@ -31,11 +31,14 @@ fi
 MEILISEARCH_CONTAINER="meilisearch"
 OPENSEARCH_CONTAINER="opensearch"
 SOLR_CONTAINER="solr"
+QUICKWIT_CONTAINER="quickwit"
+
 declare -A CONTAINERS
 CONTAINERS=(
   ["meilisearch"]="$MEILISEARCH_CONTAINER"
   ["opensearch"]="$OPENSEARCH_CONTAINER"
   ["solr"]="$SOLR_CONTAINER"
+  ["quickwit"]="$QUICKWIT_CONTAINER"
 )
 
 # Launch containers if they don't already exist
@@ -151,6 +154,46 @@ if [ "$(lxc exec "$SOLR_CONTAINER" systemctl is-active solr)" = "inactive" ]; th
 
     lxc exec $SOLR_CONTAINER -- sudo -u solr /opt/solr/bin/solr create -c new_core
 fi
+
+########################################
+# Set up Quickwit in its container
+########################################
+if [ "$(lxc exec "$QUICKWIT_CONTAINER" systemctl is-active quickwit)" = "inactive" ]; then
+    echo "Setting up Quickwit in container 'quickwit'..."
+    lxc exec $QUICKWIT_CONTAINER -- apt update
+    lxc exec $QUICKWIT_CONTAINER -- curl -L https://install.quickwit.io -o setup.sh
+    lxc exec $QUICKWIT_CONTAINER -- bash setup.sh
+    lxc exec $QUICKWIT_CONTAINER -- bash -c "mv ./quickwit-v* /usr/local/bin/"
+    lxc exec $QUICKWIT_CONTAINER -- useradd -d /var/lib/quickwit -s /bin/false -m -r quickwit
+    lxc exec $QUICKWIT_CONTAINER -- bash -c "chown -R quickwit:quickwit /usr/local/bin/quickwit-v*"
+    lxc exec $QUICKWIT_CONTAINER -- mkdir -p /var/lib/quickwit/data 
+    lxc exec $QUICKWIT_CONTAINER -- chown -R quickwit:quickwit /var/lib/quickwit
+    lxc exec $QUICKWIT_CONTAINER -- chmod 750 /var/lib/quickwit
+
+    lxc exec $QUICKWIT_CONTAINER -- bash -c "sed -i 's/# listen_address: 127.0.0.1/listen_address: 0.0.0.0/' /usr/local/bin/quickwit-v*/config/quickwit.yaml"
+    lxc exec $QUICKWIT_CONTAINER -- bash -c "sed -i 's/# data_dir: \/path\/to\/data\/dir/data_dir: \/var\/lib\/quickwit\/data/' /usr/local/bin/quickwit-v*/config/quickwit.yaml"
+
+    cat <<EOF | lxc exec "$QUICKWIT_CONTAINER" -- tee /etc/systemd/system/quickwit.service
+[Unit]
+Description=Quickwit
+After=systemd-user-sessions.service
+
+[Service]
+Type=simple
+WorkingDirectory=/var/lib/quickwit
+ExecStart=/bin/bash -c "exec /usr/local/bin/quickwit-v*/quickwit run --config /usr/local/bin/quickwit-v*/config/quickwit.yaml"
+User=quickwit
+Group=quickwit
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    lxc exec $QUICKWIT_CONTAINER -- systemctl enable quickwit
+    lxc exec $QUICKWIT_CONTAINER -- systemctl start quickwit
+fi
+
 
 echo "Setup complete. All containers are configured and should be running their respective search engines."
 

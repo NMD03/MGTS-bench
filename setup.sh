@@ -144,9 +144,9 @@ if [ "$(lxc exec "$SOLR_CONTAINER" systemctl is-active solr)" = "inactive" ]; th
     echo "Setting up Solr in container 'solr'..."
     lxc exec $SOLR_CONTAINER -- apt update
     lxc exec $SOLR_CONTAINER -- apt install openjdk-21-jre-headless -y
-    lxc exec $SOLR_CONTAINER -- curl https://dlcdn.apache.org/solr/solr/9.8.0/solr-9.8.0.tgz -o solr-9.8.0.tgz
-    lxc exec $SOLR_CONTAINER -- tar xzf solr-9.8.0.tgz solr-9.8.0/bin/install_solr_service.sh --strip-components=2
-    lxc exec $SOLR_CONTAINER -- sudo bash ./install_solr_service.sh solr-9.8.0.tgz
+    lxc exec $SOLR_CONTAINER -- curl https://dlcdn.apache.org/solr/solr/9.8.1/solr-9.8.1.tgz -o solr-9.8.1.tgz
+    lxc exec $SOLR_CONTAINER -- tar xzf solr-9.8.1.tgz solr-9.8.1/bin/install_solr_service.sh --strip-components=2
+    lxc exec $SOLR_CONTAINER -- sudo bash ./install_solr_service.sh solr-9.8.1.tgz
 
     lxc exec $SOLR_CONTAINER -- sed -i 's/#SOLR_HOST="192.168.1.1"/SOLR_HOST="solr.lxd"/' /etc/default/solr.in.sh
     lxc exec $SOLR_CONTAINER -- sed -i 's/#SOLR_JETTY_HOST="127.0.0.1"/SOLR_JETTY_HOST="0.0.0.0"/' /etc/default/solr.in.sh

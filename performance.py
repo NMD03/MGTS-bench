@@ -6,16 +6,17 @@ import time
 import concurrent.futures
 import meilisearch
 import pysolr
+import yaml
 from statistics import mean, median
 from opensearchpy import OpenSearch
 import matplotlib.pyplot as plt
 import numpy as np
 
-MILEI_HOST = "10.201.235.43:7700"
-OPEN_HOST = "10.201.235.220"
-SOLR_HOST = "10.201.235.34:8983"
+MILEI_HOST = "10.201.235.34:7700"
+OPEN_HOST = "10.201.235.158"
+SOLR_HOST = "10.201.235.9:8983"
 SOLR_CORE = "new_core"
-QUICKWIT_HOST = "10.201.235.68:7280"
+QUICKWIT_HOST = "10.201.235.108:7280"
 
 
 # Base class for search engines
@@ -207,7 +208,8 @@ class SolrEngine(SearchEngine):
         payload = {
             "add-field": {
                 "name": field_name,
-                "type": "text_en",
+                # "type": "text_en",
+                "type": field_type,
                 "stored": stored,
                 "indexed": indexed,
                 "multiValued": multiValued,
@@ -428,12 +430,49 @@ class QuickWitEngine(SearchEngine):
         self.config_file = "quickwit_conf.yaml"
 
     def index_documents(self, docs):
-        try:
-            with open(self.config_file, "r", encoding="utf-8") as f:
-                yaml_config = f.read()
-        except Exception as e:
-            print(f"Error reading YAML config file: {e}")
-            return None
+        # Helper function to recursively flatten keys from a JSON object.
+        def flatten_keys(obj, parent_key="", sep="."):
+            keys = set()
+            if isinstance(obj, dict):
+                for k, v in obj.items():
+                    new_key = f"{parent_key}{sep}{k}" if parent_key else k
+                    keys.add(new_key)
+                    keys.update(flatten_keys(v, new_key, sep=sep))
+            elif isinstance(obj, list):
+                for item in obj:
+                    keys.update(flatten_keys(item, parent_key, sep=sep))
+            return keys
+
+        # Extract keys from all documents
+        all_keys = set()
+        for doc in docs:
+            all_keys.update(flatten_keys(doc))
+        sorted_keys = sorted(all_keys)
+        
+        # Generate YAML configuration inline.
+        # Adjust 'index_id' to use your self.index_name if that fits your naming scheme.
+        config_dict = {
+            "version": "0.7",
+            "index_id": self.index_name,
+            "doc_mapping": {
+                "mode": "dynamic",
+                "dynamic_mapping": {
+                    "indexed": True,
+                    "stored": True,
+                    "tokenizer": "default",
+                    "record": "basic",
+                    "expand_dots": True,
+                    "fast": True
+                }
+            },
+            "search_settings": {
+                "default_search_fields": sorted_keys
+            }
+        }
+        
+        yaml_config = yaml.dump(config_dict, default_flow_style=False)
+        
+        # Post the YAML configuration to create/update the index.
         url = f"{self.base_url}/api/v1/indexes"
         headers = {"Content-Type": "application/yaml"}
         try:
@@ -442,13 +481,15 @@ class QuickWitEngine(SearchEngine):
                 print(f"Indexing error ({response.status_code}): {response.text}")
         except Exception as e:
             print(f"Indexing exception: {e}")
+        
+        # Ingest documents.
         start = time.time()
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/api/v1/{self.index_name}/ingest"
         for doc in docs:
             data = json.dumps(doc, ensure_ascii=False)
             try:
-                response = requests.post(url, data=data,headers=headers)
+                response = requests.post(url, data=data, headers=headers)
                 if response.status_code != 200:
                     print(f"Indexing error ({response.status_code}): {response.text}")
             except Exception as e:
@@ -456,20 +497,24 @@ class QuickWitEngine(SearchEngine):
         elapsed = time.time() - start
         return elapsed
 
+
     def _perform_search(self, query):
         start = time.time()
-        url = f"{self.base_url}/api/v1/{self.index_name}/search"
+        url = f"{self.base_url}/api/v1/{self.index_name}/search?query={query}"
         payload = {
             "query": query,
             "index_id": self.index_name,
         }
         try:
-            response = requests.post(url, json=payload)
+            # response = requests.post(url, json=payload)
+            response = requests.get(url)
             response.raise_for_status()
             elapsed = time.time() - start
             return elapsed
         except Exception as e:
             print(f"Search error: {e}")
+            print(f"Payload: {payload}")
+            print(f"url: {url}")
             return None
 
     def search(self, query, num_requests=100, concurrency=10):
@@ -528,7 +573,7 @@ class MISPPerfTester:
         self.engines = [
             OpenSearchEngine(),
             MeilisearchEngine(),
-            SolrEngine(),
+            # SolrEngine(),
             QuickWitEngine(),
         ]
 
@@ -701,14 +746,15 @@ def main():
     #
     # tester.cleanup()
     # tester.run_indexing_tests()
-    # tester.run_search_tests()
-    # queries, results = tester.run_multiple_search_tests()
-    # tester.plot_results(queries, results)
+    
+    quick = tester.engines[2]
+    print(quick.index_documents(tester.documents))
+    tester.run_search_tests()
+    queries, results = tester.run_multiple_search_tests()
+    tester.plot_results(queries, results)
 
-    quick = tester.engines[3]
-    #quick.cleanup()
-    #print(quick.index_documents(tester.documents))
-    quick.search(tester.query)
+    # quick.cleanup()
+    # print(quick.search(tester.query))
 
 
 if __name__ == "__main__":

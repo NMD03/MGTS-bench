@@ -61,7 +61,7 @@ class OpenSearchEngine(SearchEngine):
                     index="misp-galaxies", body=doc, id=doc_id, refresh=True
                 )
             except Exception:
-                # print(f"Error on doc: {doc}")
+                print(f"Error on doc: {doc}")
                 pass
         elapsed = time.time() - start
         return elapsed
@@ -699,7 +699,7 @@ class MISPPerfTester:
             ax.legend()
             plt.tight_layout()
             plt.savefig("search_performance.png")
-            print("Plot saved to search_performance.png")
+        print("Plot saved to search_performance.png")
 
     def cleanup(self):
         for engine in self.engines:
@@ -747,8 +747,8 @@ def main():
     # tester.cleanup()
     # tester.run_indexing_tests()
     
-    quick = tester.engines[2]
-    print(quick.index_documents(tester.documents))
+    # quick = tester.engines[2]
+    # print(quick.index_documents(tester.documents))
     tester.run_search_tests()
     queries, results = tester.run_multiple_search_tests()
     tester.plot_results(queries, results)
